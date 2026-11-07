@@ -6,6 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: unzip -q project.zip -d proj
+      - name: fix sword
+        run: |
+          sed -i 's/new Item.Settings().sword(ToolMaterial.IRON, 4f, -2.4f)/ToolMaterial.IRON.applySwordSettings(new Item.Settings(), 4f, -2.4f)/' $(find proj -name ModItems.java)
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
